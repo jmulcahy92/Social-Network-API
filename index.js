@@ -1,4 +1,4 @@
-//copied from unit 18 mini-project
+// copied from unit 18 mini-project
 const express = require('express');
 const db = require('./config/connection');
 const routes = require('./routes');
