@@ -23,7 +23,7 @@ const thoughtSchema = new Schema(
     },
     {
         toJSON: {
-            getters: TextTrackCue
+            getters: true
         },
         id: false
     }
