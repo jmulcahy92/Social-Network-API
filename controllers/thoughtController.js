@@ -1,6 +1,8 @@
+// require Thought and User models
 const { Thought, User } = require('../models');
 
 module.exports = {
+    // get all thoughts
     getThoughts(req, res) {
         Thought.find()
             .then((thoughts) => res.json(thoughts))
@@ -10,6 +12,7 @@ module.exports = {
             });
     },
 
+    // get one thought by id
     getSingleThought(req, res) {
         Thought.findOne({ _id: req.params.thoughtId })
             .select('-__v')
@@ -24,12 +27,14 @@ module.exports = {
             });
     },
 
+    // create a new thought
     createThought(req, res) {
         Thought.create(req.body)
             .then((thought) => {
+                // push thought into user's thoughts array (currently bugged)
                 User.findOneAndUpdate(
                     { _id: req.body.userId },
-                    { $push: { thoughts: thought } },
+                    { $push: { thoughts: req.body } },
                     { runValidators: true, new: true }
                 );
                 res.json(thought);
@@ -40,6 +45,7 @@ module.exports = {
             });
     },
 
+    // update an existing thought
     updateThought(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -57,6 +63,7 @@ module.exports = {
             });
     },
 
+    // delete a thought
     deleteThought(req, res) {
         Thought.findOneAndDelete({ _id: req.params.thoughtId })
             .then((thought) =>
@@ -71,6 +78,7 @@ module.exports = {
             });
     },
 
+    // create a reaction to a thought
     createReaction(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -88,6 +96,7 @@ module.exports = {
             });
     },
 
+    // delete a reaction (currently bugged)
     deleteReaction(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },

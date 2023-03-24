@@ -1,6 +1,8 @@
+// require User and Thought models
 const { User, Thought } = require('../models');
 
 module.exports = {
+    // get all users
     getUsers(req, res) {
         User.find()
             .then((users) => res.json(users))
@@ -10,6 +12,7 @@ module.exports = {
             });
     },
 
+    // get one user by id
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
             .select('-__v')
@@ -24,6 +27,7 @@ module.exports = {
             });
     },
 
+    // create new user
     createUser(req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
@@ -33,6 +37,7 @@ module.exports = {
             });
     },
 
+    // update existing user
     updateUser(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -50,6 +55,7 @@ module.exports = {
             });
     },
 
+    // delete a user
     deleteUser(req, res) {
         User.findOneAndDelete({ _id: req.params.userId })
             .then((user) =>
@@ -64,6 +70,7 @@ module.exports = {
             });
     },
 
+    // add one user to another's friends array
     addFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -81,6 +88,7 @@ module.exports = {
             });
     },
 
+    // remove a user from another's friends array
     removeFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },

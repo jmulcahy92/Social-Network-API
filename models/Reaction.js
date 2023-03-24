@@ -30,4 +30,6 @@ const reactionSchema = new Schema(
     }
 );
 
+// subdoc of Thought, so we don't create a model from reactionSchema; instead we export it to be used in Thought.js
+
 module.exports = reactionSchema;
